@@ -5,7 +5,9 @@
     <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
     <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
-  </head>
+    <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js" data-angle="layout"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@^3.0.x/dist/aframe-event-set-component.min.js" data-angle="event-set"></script>
+</head>
   <body>
     <a-scene>
       <a-assets>
@@ -17,14 +19,22 @@
         <img id="cubes-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg">
         <img id="sechelt" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
         <img id="sechelt-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
+        <script id="plane" type="text/html">
+          <a-entity class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}"
+            sound="on: click; src: #click-sound">
+          </a-entity>
+        </script>
       </a-assets>
       <!-- 360-degree image. -->
       <a-sky id="image-360" radius="10" src="#city"></a-sky>
       <!-- Link we will build. -->
-      <a-entity class="link"
-                geometry="primitive: plane; height: 1; width: 1"
-                material="shader: flat; src: #cubes-thumb"
-                sound="on: click; src: #click-sound"></a-entity>
+      <a-entity id="links" layout="layout: line; margin: 1.5" position="-3 -1 -4">
+        <a-entity template="src: #plane" data-thumb="#city-thumb"></a-entity>
+        <a-entity template="src: #plane" data-thumb="#cubes-thumb"></a-entity>
+        <a-entity template="src: #plane" data-thumb="#sechelt-thumb"></a-entity>
+      </a-entity>
       <!-- Camera + Cursor. -->
       <a-camera>
         <a-cursor id="cursor">
